@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Healthcare Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0b7285;
+    --teal-dark: #085f70;
+    --teal-light: #e6f7f9;
+    --green: #099268;
+    --white: #ffffff;
+    --gray-bg: #f8fafb;
+    --gray-light: #f1f3f5;
+    --gray-border: #dee2e6;
+    --text: #212529;
+    --text-muted: #6c757d;
+    --success: #2f9e44;
+    --error: #c92a2a;
+    --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-bg);
+    color: var(--text);
+  }
+
+  /* NAVBAR */
+  .navbar {
+    background: var(--teal);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .navbar-brand {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    padding: 14px 0;
+    text-decoration: none;
+  }
+  .navbar-links { display: flex; flex-wrap: wrap; }
+  .navbar a {
+    color: white;
+    padding: 16px 14px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+    transition: background 0.2s;
+  }
+  .navbar a:hover { background: var(--teal-dark); opacity: 1; }
+
+  /* SECTIONS */
+  section { padding: 60px 24px; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .section-sub { color: var(--text-muted); margin-bottom: 32px; font-size: 15px; }
+
+  /* HERO */
+  #home {
+    background: linear-gradient(135deg, var(--teal) 0%, #0f9a8a 100%);
+    color: white;
+    text-align: center;
+    padding: 80px 24px;
+  }
+  #home h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    margin-bottom: 16px;
+  }
+  #home p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto 32px; }
+  .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    background: white;
+    color: var(--teal);
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform 0.2s;
+  }
+  .btn-outline:hover { transform: translateY(-2px); }
+
+  /* FEATURES STRIP */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    background: white;
+    padding: 32px 24px;
+    border-bottom: 1px solid var(--gray-border);
+  }
+  .feature-item { display: flex; align-items: center; gap: 12px; }
+  .feature-icon {
+    width: 44px; height: 44px;
+    background: var(--teal-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .feature-item h4 { font-size: 14px; font-weight: 600; }
+  .feature-item p { font-size: 12px; color: var(--text-muted); }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--gray-border);
+    max-width: 520px;
+  }
+
+  /* FORMS */
+  label { font-size: 13px; font-weight: 600; color: var(--text-muted); display: block; margin-top: 16px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--gray-border);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-bg);
+    color: var(--text);
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+    background: white;
+  }
+  textarea { resize: vertical; min-height: 90px; }
+
+  .btn {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    margin-top: 18px;
+    width: 100%;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--teal);
+    border: 1.5px solid var(--teal);
+    margin-top: 10px;
+  }
+  .btn-secondary:hover { background: var(--teal-light); }
+
+  /* MESSAGES */
+  .msg {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+  }
+  .msg.success { background: #ebfbee; color: var(--success); border: 1px solid #b2f2bb; display: block; }
+  .msg.error { background: #fff5f5; color: var(--error); border: 1px solid #ffc9c9; display: block; }
+  .msg.info { background: var(--teal-light); color: var(--teal-dark); border: 1px solid #99e0ea; display: block; }
+
+  /* CHATBOT */
+  .chat-window {
+    background: var(--gray-bg);
+    border: 1.5px solid var(--gray-border);
+    border-radius: 10px;
+    height: 260px;
+    overflow-y: auto;
+    padding: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chat-bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .chat-bubble.user {
+    background: var(--teal);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-bubble.bot {
+    background: white;
+    color: var(--text);
+    align-self: flex-start;
+    border: 1px solid var(--gray-border);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-input-row { display: flex; gap: 8px; }
+  .chat-input-row input { flex: 1; margin: 0; }
+  .chat-input-row button { width: auto; margin: 0; padding: 10px 20px; border-radius: 8px; }
+  .quick-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .quick-btn {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    border: 1px solid #99e0ea;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .quick-btn:hover { background: #c8f0f5; }
+
+  /* SYMPTOMS CHECKER */
+  .symptoms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .symptom-chip {
+    background: var(--gray-light);
+    border: 1.5px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .symptom-chip.selected {
+    background: var(--teal-light);
+    border-color: var(--teal);
+    color: var(--teal-dark);
+    font-weight: 600;
+  }
+  .symptom-chip:hover { border-color: var(--teal); }
+
+  /* DOCTORS GRID */
+  .doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .doctor-card {
+    background: white;
+    border: 1px solid var(--gray-border);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .doctor-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+  .doctor-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .doctor-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .doctor-card .spec { font-size: 13px; color: var(--teal); font-weight: 500; margin-bottom: 8px; }
+  .doctor-card .avail { font-size: 12px; color: var(--text-muted); }
+  .avail-dot {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--success); margin-right: 5px;
+  }
+  .avail-dot.busy { background: #e67700; }
+
+  /* TABS */
+  .tab-btns { display: flex; gap: 0; margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--teal); width: fit-content; }
+  .tab-btn {
+    padding: 10px 24px;
+    background: white;
+    color: var(--teal);
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { background: var(--teal); color: white; }
+
+  /* AUTH TOGGLE */
+  .auth-toggle { text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); }
+  .auth-toggle a { color: var(--teal); cursor: pointer; font-weight: 600; text-decoration: none; }
+  .auth-toggle a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .navbar { flex-direction: column; align-items: flex-start; padding: 0 12px; }
+    .navbar-links { flex-wrap: wrap; }
+    .navbar a { padding: 12px 10px; font-size: 13px; }
+    #home h1 { font-size: 28px; }
+    #home p { font-size: 15px; }
+    section { padding: 40px 14px; }
+    .card { padding: 20px 16px; }
+    .doctors-grid { grid-template-columns: 1fr; }
+  }
+
+  /* DIVIDER */
+  .section-divider { height: 1px; background: var(--gray-border); margin: 0 24px; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="navbar-brand" href="#home">🏥 MediCare AI</a>
+  <div class="navbar-links">
+    <a href="#home">Home</a>
+    <a href="#chatbot">AI Chatbot</a>
+    <a href="#symptoms">Symptoms</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#appointment">Appointment</a>
+    <a href="#auth">Login</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <h1>Your Health, Our Priority</h1>
+  <p>Ask health questions, check symptoms, find doctors, and book appointments — all in one platform.</p>
+  <div class="hero-buttons">
+    <a href="#chatbot" class="btn-white">💬 Ask AI Chatbot</a>
+    <a href="#appointment" class="btn-outline">📅 Book Appointment</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature-item">
+    <div class="feature-icon">🤖</div>
+    <div><h4>AI Chatbot</h4><p>Instant health guidance</p></div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">🩺</div>
+    <div><h4>Symptom Checker</h4><p>Identify possible conditions</p></div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">👨‍⚕️</div>
+    <div><h4>Expert Doctors</h4><p>Verified specialists</p></div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">📅</div>
+    <div><h4>Easy Booking</h4><p>Appointments in seconds</p></div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- CHATBOT -->
+<section id="chatbot">
+  <div class="section-title">AI Health Chatbot</div>
+  <p class="section-sub">Ask any health question and get instant AI-powered guidance.</p>
+  <div class="card">
+    <div class="quick-btns">
+      <button class="quick-btn" onclick="quickAsk('I have fever')">🌡️ Fever</button>
+      <button class="quick-btn" onclick="quickAsk('I have headache')">🤕 Headache</button>
+      <button class="quick-btn" onclick="quickAsk('I have cold and cough')">🤧 Cold/Cough</button>
+      <button class="quick-btn" onclick="quickAsk('I have diabetes symptoms')">💉 Diabetes</button>
+      <button class="quick-btn" onclick="quickAsk('I have high blood pressure')">❤️ BP</button>
+      <button class="quick-btn" onclick="quickAsk('I have chest pain')">⚠️ Chest Pain</button>
+    </div>
+    <div class="chat-window" id="chatWindow">
+      <div class="chat-bubble bot">👋 Hello! I'm your AI health assistant. Ask me about symptoms, medications, or general health advice. <strong>Note: Always consult a real doctor for medical decisions.</strong></div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Type your health question..." onkeydown="if(event.key==='Enter') sendChat()">
+      <button class="btn" style="width:auto; margin:0;" onclick="sendChat()">Send</button>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SYMPTOMS CHECKER -->
+<section id="symptoms">
+  <div class="section-title">Symptom Checker</div>
+  <p class="section-sub">Select your symptoms and get possible conditions and recommendations.</p>
+  <div class="card" style="max-width: 680px;">
+    <p style="font-size:14px; color: var(--text-muted); margin-bottom: 8px;">Select all symptoms you are experiencing:</p>
+    <div class="symptoms-grid" id="symptomsGrid">
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'fever')">🌡️ Fever</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'headache')">🤕 Headache</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'cough')">😮‍💨 Cough</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'cold')">🤧 Cold/Runny Nose</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'fatigue')">😴 Fatigue</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'chest pain')">💗 Chest Pain</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'nausea')">🤢 Nausea</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'dizziness')">😵 Dizziness</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'body pain')">🦴 Body Pain</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'sore throat')">🗣️ Sore Throat</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'stomach pain')">🫃 Stomach Pain</div>
+      <div class="symptom-chip" onclick="toggleSymptom(this, 'high bp')">❤️ High BP</div>
+    </div>
+    <button class="btn" onclick="checkSymptoms()">🔍 Check Symptoms</button>
+    <div id="symptomResult" class="msg"></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- DOCTORS -->
+<section id="doctors">
+  <div class="section-title">Our Doctors</div>
+  <p class="section-sub">Meet our team of verified medical specialists.</p>
+  <div class="doctors-grid">
+    <div class="doctor-card">
+      <div class="doctor-avatar" style="background:#e6f7f9;">👨‍⚕️</div>
+      <h3>Dr. Ravi Sharma</h3>
+      <div class="spec">General Physician</div>
+      <div class="avail"><span class="avail-dot"></span>Available Today</div>
+      <div class="avail" style="margin-top:4px;">⭐ 4.9 · 12 yrs experience</div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-avatar" style="background:#fff0f6;">👩‍⚕️</div>
+      <h3>Dr. Priya Meena</h3>
+      <div class="spec">Cardiologist</div>
+      <div class="avail"><span class="avail-dot"></span>Available Today</div>
+      <div class="avail" style="margin-top:4px;">⭐ 4.8 · 15 yrs experience</div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-avatar" style="background:#ebfbee;">👨‍⚕️</div>
+      <h3>Dr. Anil Raj</h3>
+      <div class="spec">Neurologist</div>
+      <div class="avail"><span class="avail-dot busy"></span>Busy — Next slot tomorrow</div>
+      <div class="avail" style="margin-top:4px;">⭐ 4.7 · 10 yrs experience</div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-avatar" style="background:#fff9db;">👩‍⚕️</div>
+      <h3>Dr. Sunita Rao</h3>
+      <div class="spec">Diabetologist</div>
+      <div class="avail"><span class="avail-dot"></span>Available Today</div>
+      <div class="avail" style="margin-top:4px;">⭐ 4.9 · 18 yrs experience</div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-avatar" style="background:#f3f0ff;">👨‍⚕️</div>
+      <h3>Dr. Kiran Reddy</h3>
+      <div class="spec">Orthopedic Surgeon</div>
+      <div class="avail"><span class="avail-dot"></span>Available Today</div>
+      <div class="avail" style="margin-top:4px;">⭐ 4.6 · 8 yrs experience</div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-avatar" style="background:#fff4e6;">👩‍⚕️</div>
+      <h3>Dr. Lakshmi Nair</h3>
+      <div class="spec">Dermatologist</div>
+      <div class="avail"><span class="avail-dot busy"></span>Busy — Next slot tomorrow</div>
+      <div class="avail" style="margin-top:4px;">⭐ 4.8 · 11 yrs experience</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- APPOINTMENT -->
+<section id="appointment">
+  <div class="section-title">Book Appointment</div>
+  <p class="section-sub">Fill in your details to book an appointment with our doctors.</p>
+  <div class="card">
+    <form onsubmit="bookAppointment(event)">
+      <label>Patient Name</label>
+      <input type="text" id="pname" placeholder="Enter your full name" required>
+
+      <label>Age</label>
+      <input type="number" id="age" placeholder="Enter your age" min="1" max="120" required>
+
+      <label>Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" required>
+
+      <label>Select Doctor</label>
+      <select id="doctor">
+        <option value="Dr. Ravi Sharma (General Physician)">Dr. Ravi Sharma — General Physician</option>
+        <option value="Dr. Priya Meena (Cardiologist)">Dr. Priya Meena — Cardiologist</option>
+        <option value="Dr. Anil Raj (Neurologist)">Dr. Anil Raj — Neurologist</option>
+        <option value="Dr. Sunita Rao (Diabetologist)">Dr. Sunita Rao — Diabetologist</option>
+        <option value="Dr. Kiran Reddy (Orthopedic)">Dr. Kiran Reddy — Orthopedic</option>
+        <option value="Dr. Lakshmi Nair (Dermatologist)">Dr. Lakshmi Nair — Dermatologist</option>
+      </select>
+
+      <label>Preferred Date</label>
+      <input type="date" id="apptDate" required>
+
+      <label>Reason for Visit</label>
+      <textarea id="reason" placeholder="Briefly describe your symptoms or reason..."></textarea>
+
+      <button type="submit" class="btn">📅 Book Appointment</button>
+    </form>
+    <div id="apptMsg" class="msg"></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- AUTH -->
+<section id="auth">
+  <div class="section-title" id="authTitle">Login</div>
+  <p class="section-sub">Access your health records and appointments.</p>
+
+  <div class="tab-btns">
+    <button class="tab-btn active" onclick="showTab('login')">Login</button>
+    <button class="tab-btn" onclick="showTab('register')">Register</button>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="card" id="loginForm">
+    <form onsubmit="loginUser(event)">
+      <label>Email Address</label>
+      <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+      <button type="submit" class="btn">🔐 Login</button>
+    </form>
+    <div id="loginMsg" class="msg"></div>
+    <div class="auth-toggle">Don't have an account? <a onclick="showTab('register')">Register here</a></div>
+  </div>
+
+  <!-- REGISTER FORM -->
+  <div class="card" id="registerForm" style="display:none;">
+    <form onsubmit="registerUser(event)">
+      <label>Full Name</label>
+      <input type="text" id="regName" placeholder="Enter your full name" required>
+
+      <label>Email Address</label>
+      <input type="email" id="regEmail" placeholder="Enter your email" required>
+
+      <label>Phone Number</label>
+      <input type="tel" id="regPhone" placeholder="Enter your phone number" required>
+
+      <label>Password</label>
+      <input type="password" id="regPassword" placeholder="Create a password" required>
+
+      <label>Confirm Password</label>
+      <input type="password" id="regConfirm" placeholder="Confirm your password" required>
+
+      <button type="submit" class="btn">✅ Create Account</button>
+    </form>
+    <div id="registerMsg" class="msg"></div>
+    <div class="auth-toggle">Already have an account? <a onclick="showTab('login')">Login here</a></div>
+  </div>
+</section>
+
+<script>
+  // ── CHATBOT ──
+  const responses = {
+    fever: "🌡️ Fever may indicate infection. Stay hydrated, rest, and take paracetamol if temperature is above 38°C. See a doctor if fever persists beyond 3 days.",
+    headache: "🤕 Headaches are often caused by dehydration, stress, or lack of sleep. Drink water, rest in a dark room, and try a mild painkiller. Consult a doctor for severe/recurring headaches.",
+    cold: "🤧 Common cold usually resolves in 7-10 days. Stay warm, drink warm fluids, and use steam inhalation. Vitamin C can help.",
+    cough: "😮‍💨 For dry cough: try honey with warm water. For productive cough: stay hydrated and consider a cough syrup. See a doctor if it lasts more than 2 weeks.",
+    diabetes: "💉 Diabetes symptoms include frequent urination, excessive thirst, and fatigue. Please consult Dr. Sunita Rao (Diabetologist) for proper testing and management.",
+    blood: "❤️ High blood pressure often has no symptoms. Reduce salt, exercise regularly, and manage stress. Please book an appointment with Dr. Priya Meena (Cardiologist).",
+    bp: "❤️ High blood pressure often has no symptoms. Reduce salt, exercise regularly, and manage stress. Please book an appointment with Dr. Priya Meena (Cardiologist).",
+    chest: "⚠️ Chest pain can be serious. If it is severe, crushing, or accompanied by shortness of breath, call emergency services (108) immediately. Don't ignore chest pain.",
+    nausea: "🤢 Nausea can be caused by food poisoning, infection, or medication. Try ginger tea, rest, and avoid heavy foods. See a doctor if it persists.",
+    fatigue: "😴 Fatigue can indicate anemia, thyroid issues, or lack of sleep. Ensure 7-8 hours of sleep, stay hydrated, and consult a doctor if it's persistent.",
+    dizziness: "😵 Dizziness may be due to low BP, dehydration, or inner ear issues. Sit down, drink water, and avoid sudden movements. Consult a doctor if frequent.",
+    appointment: "📅 You can book an appointment by scrolling to the Appointment section above or clicking 'Book Appointment' in the navigation!",
+    doctor: "👨‍⚕️ We have specialists in General Medicine, Cardiology, Neurology, Diabetology, Orthopedics, and Dermatology. Scroll to the Doctors section to know more!",
+    default: "🩺 Thank you for your query. For accurate diagnosis and treatment, I recommend consulting one of our specialist doctors. Would you like to book an appointment?"
+  };
+
+  function getResponse(query) {
+    const q = query.toLowerCase();
+    for (const key in responses) {
+      if (q.includes(key)) return responses[key];
+    }
+    return responses.default;
+  }
+
+  function addBubble(text, type) {
+    const win = document.getElementById('chatWindow');
+    const b = document.createElement('div');
+    b.className = 'chat-bubble ' + type;
+    b.innerHTML = text;
+    win.appendChild(b);
+    win.scrollTop = win.scrollHeight;
+  }
+
+  function sendChat() {
+    const input = document.getElementById('chatInput');
+    const q = input.value.trim();
+    if (!q) return;
+    addBubble(q, 'user');
+    input.value = '';
+    setTimeout(() => addBubble(getResponse(q), 'bot'), 500);
+  }
+
+  function quickAsk(q) {
+    addBubble(q, 'user');
+    setTimeout(() => addBubble(getResponse(q), 'bot'), 500);
+    document.getElementById('chatWindow').scrollTop = 999999;
+  }
+
+  // ── SYMPTOMS CHECKER ──
+  let selectedSymptoms = [];
+
+  function toggleSymptom(el, sym) {
+    el.classList.toggle('selected');
+    if (selectedSymptoms.includes(sym)) {
+      selectedSymptoms = selectedSymptoms.filter(s => s !== sym);
+    } else {
+      selectedSymptoms.push(sym);
+    }
+  }
+
+  function checkSymptoms() {
+    const res = document.getElementById('symptomResult');
+    if (selectedSymptoms.length === 0) {
+      res.className = 'msg error';
+      res.innerText = '⚠️ Please select at least one symptom.';
+      return;
+    }
+    let result = '';
+    const s = selectedSymptoms;
+    if (s.includes('fever') && s.includes('cough') && s.includes('cold')) {
+      result = '🦠 Possible Condition: Viral Flu / COVID-19. Rest, stay hydrated, and consult a General Physician. Monitor oxygen levels.';
+    } else if (s.includes('chest pain') || (s.includes('high bp') && s.includes('dizziness'))) {
+      result = '⚠️ Possible Condition: Cardiovascular issue. Please consult Dr. Priya Meena (Cardiologist) immediately. Do not ignore chest pain.';
+    } else if (s.includes('fatigue') && s.includes('dizziness') && s.includes('nausea')) {
+      result = '🩸 Possible Condition: Anemia or low blood pressure. Increase iron-rich foods, stay hydrated, and consult a General Physician.';
+    } else if (s.includes('fever') && s.includes('body pain') && s.includes('headache')) {
+      result = '🦟 Possible Condition: Dengue or Malaria. Please get a blood test immediately and consult a General Physician.';
+    } else if (s.includes('stomach pain') && s.includes('nausea')) {
+      result = '🤢 Possible Condition: Gastritis or food poisoning. Avoid spicy food, drink ORS, and rest. See a doctor if pain is severe.';
+    } else if (s.includes('sore throat') && s.includes('fever')) {
+      result = '🦠 Possible Condition: Throat infection or Tonsillitis. Gargle with warm salt water, avoid cold drinks, and consult a doctor.';
+    } else {
+      result = '🩺 Based on your symptoms: ' + selectedSymptoms.join(', ') + ' — we recommend consulting one of our General Physicians for a proper diagnosis.';
+    }
+    res.className = 'msg info';
+    res.innerHTML = result + '<br><br><a href="#appointment" style="color:var(--teal-dark); font-weight:600;">📅 Book an appointment →</a>';
+  }
+
+  // ── APPOINTMENT ──
+  function bookAppointment(e) {
+    e.preventDefault();
+    const name = document.getElementById('pname').value;
+    const doctor = document.getElementById('doctor').value;
+    const date = document.getElementById('apptDate').value;
+    const phone = document.getElementById('phone').value;
+    const msg = document.getElementById('apptMsg');
+
+    const d = new Date(date);
+    const formatted = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    msg.className = 'msg success';
+    msg.innerHTML = `✅ Appointment confirmed!<br><br>
+      <strong>Patient:</strong> ${name}<br>
+      <strong>Doctor:</strong> ${doctor}<br>
+      <strong>Date:</strong> ${formatted}<br>
+      <strong>Phone:</strong> ${phone}<br><br>
+      📱 A confirmation will be sent to your phone number.`;
+    e.target.reset();
+  }
+
+  // ── AUTH TABS ──
+  function showTab(tab) {
+    document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+      b.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
+    });
+    document.getElementById('authTitle').innerText = tab === 'login' ? 'Login' : 'Create Account';
+  }
+
+  function loginUser(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const msg = document.getElementById('loginMsg');
+    msg.className = 'msg success';
+    msg.innerHTML = `✅ Welcome back! You are now logged in as <strong>${email}</strong>`;
+    e.target.reset();
+  }
+
+  function registerUser(e) {
+    e.preventDefault();
+    const name = document.getElementById('regName').value;
+    const pass = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('regConfirm').value;
+    const msg = document.getElementById('registerMsg');
+    if (pass !== confirm) {
+      msg.className = 'msg error';
+      msg.innerText = '❌ Passwords do not match. Please try again.';
+      return;
+    }
+    msg.className = 'msg success';
+    msg.innerHTML = `✅ Account created successfully! Welcome, <strong>${name}</strong>! You can now login.`;
+    e.target.reset();
+    setTimeout(() => showTab('login'), 2000);
+  }
+
+  // Set min date for appointment to today
+  document.getElementById('apptDate').min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
